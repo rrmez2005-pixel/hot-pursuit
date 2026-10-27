@@ -121,10 +121,24 @@ class Player {
             if(bn::keypad::left_held()) {
                 sprite.set_x(sprite.x() - speed);
             }
-            // TODO: Add logic for up and down
 
             bounding_box = create_bounding_box(sprite, size);
         }
+};
+
+class Enemy {
+    public :
+    bn::sprite_ptr mob = bn::sprite_items::dot.create_sprite();
+    bn::fixed speed; // The speed of the player
+    bn::size size; // The width and height of the sprite
+    bn::rect bounding_box; // The rectangle around the sprite for checking collision
+
+    Enemy(bn::fixed x, bn::fixed y, bn::fixed mob_speed, bn::size mob_size) : 
+        mob(bn::sprite_items::dot.create_sprite(x, y)),
+            speed(mob_speed),
+            size(mob_size),
+            bounding_box(create_bounding_box(mob, mob_size))
+        {}
 };
 
 int main() {
@@ -139,6 +153,7 @@ int main() {
 
     bn::sprite_ptr enemy_sprite = bn::sprite_items::square.create_sprite(-30, 22);
     bn::rect enemy_bounding_box = create_bounding_box(enemy_sprite, ENEMY_SIZE);
+    Enemy mob = Enemy(-40, 30, 1.2, ENEMY_SIZE);
 
     while(true) {
         player.update();

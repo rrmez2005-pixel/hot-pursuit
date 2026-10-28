@@ -164,10 +164,10 @@ class Enemy {
         }
         //Looks at the y coordinate of the enemy
         if(current_y < goal_y) {
-                mob.set_y(mob.y() - speed);
+                mob.set_y(mob.y() + speed);
         }
         if(current_y > goal_y) {
-                mob.set_y(mob.y() + speed);
+                mob.set_y(mob.y() - speed);
         }
 
     }

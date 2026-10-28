@@ -203,15 +203,11 @@ class Enemy {
     }
 };
 
-<<<<<<< HEAD
-    void enemy_position(bn::random& rand) {
-=======
     void enemy_position(Enemy& enemy, bn::random& rand) {
->>>>>>> 95ddd05a08f5219cb0542279e23370898a604da4
         int rand_v = rand.get_int(-50, 50);
 
-        mob.set_x(rand_v);
-        mob.set_y(rand_v);
+        enemy.mob.set_x(rand_v);
+        enemy.mob.set_y(rand_v);
     }
 
 int main() {
@@ -227,7 +223,6 @@ int main() {
     Player player = Player(44, 22, 1.5, PLAYER_SIZE);
     Enemy enemy = Enemy(-40, 30, 0.75, ENEMY_SIZE);
     
-    bn::random rand;
 
     while(true) {
         player.update();
@@ -238,17 +233,14 @@ int main() {
             scoreDisplay.resetScore();
             player.sprite.set_x(44);
             player.sprite.set_y(22);
-<<<<<<< HEAD
-            enemy.enemy_position(rand);
-=======
             
             enemy_position(enemy, rand);
->>>>>>> 95ddd05a08f5219cb0542279e23370898a604da4
         }
 
         // Update the scores and disaply them
         scoreDisplay.update();
         
+
         bn::core::update();
     }
 }

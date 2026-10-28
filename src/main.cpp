@@ -183,6 +183,8 @@ class Enemy {
 int main() {
     bn::core::init();
 
+    bn::random rand;
+
     // Create a new score display
     ScoreDisplay scoreDisplay = ScoreDisplay();
 
@@ -196,11 +198,18 @@ int main() {
         player.update();
         enemy.update(player);
 
+        int rand_value = rand.get_int(99);
+
         // Reset the current score and player position if the player collides with enemy
         if(enemy.bounding_box.intersects(player.bounding_box)) {
             scoreDisplay.resetScore();
             player.sprite.set_x(44);
             player.sprite.set_y(22);
+        }
+
+        if(enemy.bounding_box.intersects(player.bounding_box)) {
+            enemy.mob.set_x(rand);
+            enemy.mob.set_y(rand);
         }
 
         // Update the scores and disaply them

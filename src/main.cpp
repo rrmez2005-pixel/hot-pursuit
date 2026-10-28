@@ -143,6 +143,8 @@ class Enemy {
         size(mob_size),
         bounding_box(create_bounding_box(mob, mob_size))
         {}
+
+        void update(Player& player)
 };
 
 int main() {
@@ -168,6 +170,7 @@ int main() {
         }
 
         // Update the scores and disaply them
+        enemy.update(player);
         scoreDisplay.update();
         
 

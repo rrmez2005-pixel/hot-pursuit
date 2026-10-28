@@ -14,8 +14,6 @@
 // Width and height of the the player bounding box
 static constexpr bn::size PLAYER_SIZE = {8, 8};
 static constexpr bn::size ENEMY_SIZE = {8, 8};
-static constexpr bn::size mob_size = {8, 8};
-
 
 static constexpr int MIN_Y = -bn::display::height() / 2;
 static constexpr int MAX_Y = bn::display::height() / 2;
@@ -137,15 +135,13 @@ class Player {
 class Enemy {
     public :
     bn::sprite_ptr mob = bn::sprite_items::square.create_sprite();
-    bn::fixed speed; // The speed of the player
     bn::size size; // The width and height of the sprite
     bn::rect bounding_box; // The rectangle around the sprite for checking collision
 
-    Enemy(bn::fixed x, bn::fixed y, bn::fixed mob_speed, bn::size mob_size) : 
+    Enemy(bn::fixed x, bn::fixed y, bn::size mob_size) : 
         mob(bn::sprite_items::square.create_sprite(x, y)),
-            speed(mob_speed),
-            size(mob_size),
-            bounding_box(create_bounding_box(mob, mob_size))
+        size(mob_size),
+        bounding_box(create_bounding_box(mob, mob_size))
         {}
 };
 
@@ -158,26 +154,14 @@ int main() {
     // Create a player and initialize it
     // TODO: we will move the initialization logic to a constructor.
     Player player = Player(44, 22, 1.5, PLAYER_SIZE);
-
-    bn::sprite_ptr enemy_sprite = bn::sprite_items::square.create_sprite(-30, 22);
-    bn::sprite_ptr mob_sprite = bn::sprite_items::square.create_sprite(-30, 22);
-    bn::rect enemy_bounding_box = create_bounding_box(enemy_sprite, ENEMY_SIZE);
-    bn::rect mob_bounding_box = create_bounding_box(mob_sprite, mob_size);
-    Enemy enemy = Enemy(-40, 30, 1.2, ENEMY_SIZE);
-    Enemy mob = Enemy(-40, 30, 1.2, mob_size);
+    Enemy enemy = Enemy(-40, 30, ENEMY_SIZE);
     
 
     while(true) {
         player.update();
 
         // Reset the current score and player position if the player collides with enemy
-        if(enemy_bounding_box.intersects(player.bounding_box)) {
-            scoreDisplay.resetScore();
-            player.sprite.set_x(44);
-            player.sprite.set_y(22);
-        }
-
-        if(mob_bounding_box.intersects(player.bounding_box)) {
+        if(enemy.bounding_box.intersects(player.bounding_box)) {
             scoreDisplay.resetScore();
             player.sprite.set_x(44);
             player.sprite.set_y(22);

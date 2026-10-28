@@ -139,17 +139,17 @@ class Enemy {
     bn::size size; // The width and height of the mob
     bn::rect bounding_box; // The rectangle around the mob for checking collision
 
-    Enemy(bn::fixed x, bn::fixed y, bn::size mob_size) : 
+    Enemy(bn::fixed x, bn::fixed y, bn::fixed mob_speed, bn::size mob_size) : 
         mob(bn::sprite_items::square.create_sprite(x, y)),
+        speed(mob_speed),
         size(mob_size),
         bounding_box(create_bounding_box(mob, mob_size))
         {}
 
-    //Current enemy x/y coordinates. (simplifies code)
-    bn::fixed current_x = mob.x();
-    bn::fixed current_y = mob.y();
-
     void update(Player& player) {
+        //Current enemy x/y coordinates. (simplifies code)
+        bn::fixed current_x = mob.x();
+        bn::fixed current_y = mob.y();
 
         //Current player x/y coordinates
         bn::fixed goal_x = player.sprite.x();
@@ -182,7 +182,7 @@ int main() {
     // Create a player and initialize it
     // TODO: we will move the initialization logic to a constructor.
     Player player = Player(44, 22, 1.5, PLAYER_SIZE);
-    Enemy enemy = Enemy(-40, 30, ENEMY_SIZE);
+    Enemy enemy = Enemy(-40, 30, 0.75, ENEMY_SIZE);
     
 
     while(true) {

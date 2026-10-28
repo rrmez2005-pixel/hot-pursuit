@@ -201,17 +201,19 @@ class Enemy {
                 mob.set_y(mob.y() - speed);
         }
     }
+};
 
     void enemy_position(Enemy& enemy, bn::random& rand) {
-        int rand_v = rand.get_int(-99, 99);
+        int rand_v = rand.get_int(-50, 50);
 
         enemy.mob.set_x(rand_v);
         enemy.mob.set_y(rand_v);
     }
-};
 
 int main() {
     bn::core::init();
+
+    bn::random rand;
 
     // Create a new score display
     ScoreDisplay scoreDisplay = ScoreDisplay();
@@ -231,8 +233,8 @@ int main() {
             scoreDisplay.resetScore();
             player.sprite.set_x(44);
             player.sprite.set_y(22);
-            enemy.mob.set_x();
-            enemy.mob.set_y();
+            
+            enemy_position(enemy, rand);
         }
 
         // Update the scores and disaply them

@@ -118,6 +118,28 @@ class Player {
          * Update the position and bounding box of the player based on d-pad movement.
          */
         void update() {
+            //Player position variables
+            bn::fixed x = sprite.x();
+            bn::fixed y = sprite.y();
+
+            //Player screen border logic (I just used the same logic from that one bunny game)
+            if (x > MAX_X) {
+                x = MAX_X;
+            }
+            else if (x < MIN_X) {
+                x = MIN_X;
+            }
+            if (y > MAX_Y) {
+                y = MAX_Y;
+            }
+            else if (y < MIN_Y) {
+                y = MIN_Y;
+            }
+
+            sprite.set_x(x);
+            sprite.set_y(y);
+
+            //Player movement
             if(bn::keypad::right_held()) {
                 sprite.set_x(sprite.x() + speed);
             }
@@ -131,6 +153,7 @@ class Player {
             if(bn::keypad::down_held()) {
                 sprite.set_y(sprite.y() + speed);
             }
+
             bounding_box = create_bounding_box(sprite, size);
         }
 };

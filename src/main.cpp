@@ -11,6 +11,9 @@
 #include "bn_sprite_items_dot.h"
 #include "bn_sprite_items_square.h"
 
+//to create random values
+#include <bn_random.h>
+
 // Width and height of the the player bounding box
 static constexpr bn::size PLAYER_SIZE = {8, 8};
 static constexpr bn::size ENEMY_SIZE = {8, 8};
@@ -147,6 +150,11 @@ class Enemy {
         {}
 
     void update(Player& player) {
+        //Just remembered to update the hitbox of the enemy for every frame it moves
+        //Also hitbox logic should be at the top so that the hitbox doesn't feel
+        //delayed and is more reactive.
+        bounding_box = create_bounding_box(mob, size);
+
         //Current enemy x/y coordinates. (simplifies code)
         bn::fixed current_x = mob.x();
         bn::fixed current_y = mob.y();
@@ -169,7 +177,6 @@ class Enemy {
         if(current_y > goal_y) {
                 mob.set_y(mob.y() - speed);
         }
-
     }
 };
 
